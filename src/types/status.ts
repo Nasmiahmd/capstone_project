@@ -1,0 +1,1 @@
+type Status = "OPEN" | "IN_PROGRESS" | "RESOLVED"; 
