@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-
-
-export async function getAdminTask() {
-    
-=======
 import { AppError } from "../errors/AppError";
-import { findAllTasks } from "../repositories/admin.task.repository";
+import { findAllTasks, updateTaskStatus } from "../repositories/admin.task.repository";
+import { adminTaskRouter } from "../routes/admin.task.routes";
 import { Task } from "../types/task";
 
 type AdminTaskListQuery = {
@@ -27,10 +22,10 @@ export async function getAdminTask(
     
 
     const search = query.search?.trim() || undefined;
-    const status = query.search?.trim() || undefined;
+    const status = query.status?.trim() || undefined;
 
     if(status && !TASK_STATUSES.includes(status as TaskStatus)){
-        throw new AppError(404, "status must be between open, inProgress, resolved")
+        throw new AppError(400, "status must be between open, inProgress, resolved")
     }
 
     const tasks = await findAllTasks({
@@ -40,5 +35,22 @@ export async function getAdminTask(
     return {
         tasks
     }
->>>>>>> 2dd398ed249c33c572aebf12c5ace6c040d4a949
+}
+
+
+export async function updateAdminTaskStatus(
+    taskId: string,
+    status: unknown
+): Promise<Task> {
+    if(typeof status !== 'string' || !TASK_STATUSES.includes(status as TaskStatus)){
+        throw new AppError(400, "status must be between open, inProgress, resolved")
+    }
+
+    const task = await updateTaskStatus(taskId, status)
+
+    if(!task){
+        throw new AppError(404, "Task not found")
+    }
+
+    return task
 }
