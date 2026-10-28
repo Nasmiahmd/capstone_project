@@ -21,7 +21,8 @@ export const env = {
     logLevel: process.env.LOG_LEVEL ?? "info",
     databaseUrl: checkRequiredEnvVariables('DATABASE_URL'),
     jwtAccessSecret: checkRequiredEnvVariables('JWT_SECRET'),
-    jwtAccessExpiresIn: checkRequiredEnvVariables('JWT_ACCESS_EXPIRES_IN')
+    jwtAccessExpiresIn: checkRequiredEnvVariables('JWT_ACCESS_EXPIRES_IN'),
+    redisUrl: checkRequiredEnvVariables("REDIS_URL"),
 } as const;
 
 
