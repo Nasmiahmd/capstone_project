@@ -14,3 +14,6 @@ If we wants to delete the asset then we have to delete it it from two places
     -- npm i cloudinary
     -- npm i multer (i't primarly used for uploading file like PDFs, videos, Images)
     -- npm i ioredis bullmq
+
+## BullMQ & WORKER
+    - In here BullMQ & Worker using to do Job queue for delete cloudinary image
